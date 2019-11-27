@@ -110,6 +110,8 @@ subspaces = returnArray;
 
 end
 
+% this method just runs the classification on the entire test dataset
+% and get the accuracy for the model
 function [] = RunClassification(Subspaces, testSet, testAns)
 trueFalse = [];
 
@@ -122,7 +124,11 @@ end
 accuracy = sum(trueFalse == true, 2)/size(trueFalse,2)
 end
 
+% this method classifies the given digit with the help of 
+% the euclidean distance and k- nearesn neighbours
 function class = ClassifyDigit(Subspaces, S)
+
+k = 5; % the amount of nearest neighbours we want to check
 returnList = [;];
 for i = 1:10
    currList = cell2mat(Subspaces(i));
@@ -134,12 +140,12 @@ for i = 1:10
    end
 end    
 returnList = sortrows(returnList,1);
-returnList = returnList(1:20,2);
+returnList = returnList(1:k,2);
 
 class = mode(returnList);
 end
 
-
+%Euclidean distance
 function distance = DistanceFromTrain(trainDigit, testDigit)
 distance = sqrt(sum((testDigit - trainDigit) .^ 2));
 end
