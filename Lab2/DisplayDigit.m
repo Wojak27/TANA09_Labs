@@ -50,6 +50,7 @@ colormap(mymap1)
 image(a1)
 end
 
+% clusters the numbers in separate lists
 function subspaces = CreateSubspace(refSet, refAns, k)
 
 zeros = [;];
@@ -110,7 +111,7 @@ subspaces = returnArray;
 
 end
 
-% this method just runs the classification on the entire test dataset
+% just runs the classification on the entire test dataset
 % and get the accuracy for the model
 function [] = RunClassification(Subspaces, testSet, testAns)
 trueFalse = [];
@@ -124,7 +125,7 @@ end
 accuracy = sum(trueFalse == true, 2)/size(trueFalse,2)
 end
 
-% this method classifies the given digit with the help of 
+% classifies the given digit with the help of 
 % the euclidean distance and k- nearesn neighbours
 function class = ClassifyDigit(Subspaces, S)
 

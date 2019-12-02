@@ -83,21 +83,22 @@ end
 
 
 %% 4.13
-error = zeros(size(1:0.01:2,1));
-index = 1;
+error = size(1:0.01:;
+
 for y = 1:0.01:2
    z = Division(1.32,y)
    ztrue = 1.32/y
-   error(index)= (z-ztrue)./ztrue
-   index = index+1;
+   error = (z-ztrue)./ztrue
+   
 end
-plot(1:0.01:2,error)
 function [z] = Division(x, y)
    yk = y.^(-1);
    z = x.*yk;
 end
 
+%%
 
+xVector
 function[y]=fun(x)
    y=sqrt(1+x).*exp(x./2)-2.*sin(2.*x).*(x+x.^2);
    fprintf('%18.15f %6.2e\n',x,y)

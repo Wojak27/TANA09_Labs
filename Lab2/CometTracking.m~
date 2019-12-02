@@ -15,20 +15,20 @@ if nargin<1,NoiseLevel=0.5*10^-2;,end;
 % ten observations; all very close to each other. Here you'll have to 
 % change so the comet trajectory for other times are calculated later
 
- Times =  0:0.5:5.0; 
+ Times =  0:0.05:3.0; 
  PositionData=CometObservation(Times,NoiseLevel); 
 
 % Create a least squares problem, Ax=b, that attempts to use these 
 % initial 10 observations to fit the parameters of the ellipse.
  
  x=PositionData(1,:)';y=PositionData(2,:)';
- A= [x.^2 x.*y y.^2 x y y.^0];
- b= -ones(size(x));
- [Q,R] = qr(A,0);
+ A= [x.^2 x.*y y.^2 x y ];
+ b= -ones(size(x))
+ [Q,R] = qr(A);
 % Solve the least squares problem using the QR factorization. 
 
 
- Coefs = R\(Q'*b);
+ Coefs = R\(Q.'*b)
 
  LSCond=cond(R(:,1:5),2);   % Save condition number.
  display(['Condition number is cond(R)=',num2str(LSCond(end),'%7.3e')]);
@@ -78,9 +78,9 @@ function []=DisplayCometPath( Coefs , PositionData );
   str=[num2str(Coefs(1),'%16.12e'),'*x^2+',num2str(Coefs(2),'%16.12e')];
   str=[str,'*x*y+',num2str(Coefs(3),'%16.12e'),'*y^2+'];
   str=[str,num2str(Coefs(4),'%16.12e'),'*x+',num2str(Coefs(5),'%16.12e')];
-  str=[str,'*y+1'];
+  str=[str,'*y+1']
   clf
-  hold on, ezplot(str,[0 20 -10 10]), hold off
+  hold on, ezplot(str);, hold off
   %plot(PositionData(1,:), PositionData(2,:), '-b')
   hold on, plot( PositionData(1,:),PositionData(2,:),'kx'), hold off
   axis equal;axis([4 16 -8 4]);
