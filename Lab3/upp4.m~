@@ -1,0 +1,8 @@
+function [sx, sy] = ParametricCurve(x,y)
+   t=0:0.1:1;
+   sx = csape(t,x,'variational');
+   sy = csape(t,y,'variational');
+   
+   plot( ppval(sx,t) , ppval(sy,t),'b-');
+   plot( x,y,'r+');
+end
