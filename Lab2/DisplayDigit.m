@@ -16,7 +16,7 @@ refAns = data.RefAns;
 
 DisplayDigits(testSet(:,1));
 
-Subspaces = CreateSubspace(refSet, refAns, 20);
+Subspaces = CreateSubspace(refSet, refAns, 21);
 testDigit = testSet(:,6);
 %ClassifyDigit(Subspaces, testDigit)
 RunClassification(Subspaces, testSet, testAns)
@@ -98,14 +98,12 @@ for i = 1:size(refAns,2)
 end
 
 sortedImages = {zeros, ones, twos, threes, fours, fives, sixes, sevens, eights, nines};
-returnArray = {}
+returnArray = cell(10,1);
 for i = 1:size(sortedImages,2)
     [Uj,Sj,Vj]=svd(cell2mat(sortedImages(i)));
-    Ak = zeros(256,132);
-    for j = 1:k
-        Ak =  Uj(:,j).*Sj(j,j)*Vj(:,j)' + Ak;
-    end
-    returnArray{end+1} = Ak;
+%     Ak = zeros(256,132);
+    Ak =  Uj(:,1:k);
+    returnArray{i} = Ak;
 end
 subspaces = returnArray;
 
@@ -129,16 +127,16 @@ end
 % the euclidean distance and k- nearesn neighbours
 function class = ClassifyDigit(Subspaces, S)
 
-k = 5; % the amount of nearest neighbours we want to check
+k = 1; % the amount of nearest neighbours we want to check
 returnList = [;];
 for i = 1:10
    currList = cell2mat(Subspaces(i));
-   for j = 1:size(currList,2)
-      returnList(end+1,:) = [DistanceFromTrain(currList(:,j), S) i-1];
-      if size(returnList,1) == 0
-         returnList(end+1,:) = [DistanceFromTrain(currList(:,j), S) i-1];
-      end
-   end
+%    for j = 1:size(currList,2)
+      returnList(end+1,:) = [DistanceFromTrain(currList, S) i-1];
+%       if size(returnList,1) == 0
+%          returnList(end+1,:) = [DistanceFromTrain(currList, S) i-1];
+%       end
+%    end
 end    
 returnList = sortrows(returnList,1);
 returnList = returnList(1:k,2);
@@ -148,5 +146,6 @@ end
 
 %Euclidean distance
 function distance = DistanceFromTrain(trainDigit, testDigit)
-distance = sqrt(sum((testDigit - trainDigit) .^ 2));
+% distance = sqrt(sum((testDigit - trainDigit) .^ 2));
+distance = norm(testDigit - trainDigit*(trainDigit'*testDigit));
 end

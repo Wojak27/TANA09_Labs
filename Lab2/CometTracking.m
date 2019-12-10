@@ -22,7 +22,7 @@ if nargin<1,NoiseLevel=0.5*10^-2;,end;
 % initial 10 observations to fit the parameters of the ellipse.
  
  x=PositionData(1,:)';y=PositionData(2,:)';
- A= [x.^2 x.*y y.^2 x y y.^0];
+ A= [x.^2 x.*y y.^2 x y];
  b= -ones(size(x));
  [Q,R] = qr(A,0);
 % Solve the least squares problem using the QR factorization. 
