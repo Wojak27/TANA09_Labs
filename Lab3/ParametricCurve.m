@@ -4,7 +4,7 @@ function [sx, sy] = ParametricCurve(x,y)
    sy = csape(t,y);
    n = 10*length(x);
    tt = (0:n)/n;
-   plot( ppval(sx,tt) , ppval(sy,tt),'-b')
+   plot( ppval(sx,tt) , ppval(sy,tt),'-w')
    hold on;
    plot( x,y,'r+')
    hold off;

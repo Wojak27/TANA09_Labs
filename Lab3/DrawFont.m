@@ -10,8 +10,8 @@ function []=DrawFont()
 % Bezi'er curves. In the exercise you will successively add more points
 % into this matrix.
 %
- Control=[0 
-          0]
+ Control=[0 10 5
+          0 200 210]
 %
 % Code that can be used to cerate an "italic style" d.
 % 
@@ -36,12 +36,14 @@ end;
 % Add the new control points into the matrix Control above. And access
 % them in the same was we access coordinates from the Points matrix, e.g.  
 %
-%  C1=Control(:,1)
+  C1=Control(:,2);
+  C2=Control(:,3)
 % 
 % where column 1 of the Control matrix holds the coordinates for control
 % point C1.
 %
- P1=Points(:,7);,P2=Points(:,8);
+ P1=Points(:,8);,P2=Points(:,7);
+ DisplayBazierPath([P1(1), C1(1),C2(1),P2(1)],[P1(2), C1(2),C2(2),P2(2)], 100)
  
 %
 % Here you should set up control points for curve segment B and draw
