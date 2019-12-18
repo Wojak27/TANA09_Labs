@@ -10,8 +10,8 @@ function []=DrawFont()
 % Bezi'er curves. In the exercise you will successively add more points
 % into this matrix.
 %
- Control=[0 10 5
-          0 200 210]
+ Control=[ 10  23 15 5 -20 -33 -33 -10
+          213 216  5 0   0  40 130 170];
 %
 % Code that can be used to cerate an "italic style" d.
 % 
@@ -36,14 +36,14 @@ end;
 % Add the new control points into the matrix Control above. And access
 % them in the same was we access coordinates from the Points matrix, e.g.  
 %
-  C1=Control(:,2);
-  C2=Control(:,3)
+  C1=Control(:,1);
+  C2=Control(:,2);
 % 
 % where column 1 of the Control matrix holds the coordinates for control
 % point C1.
 %
- P1=Points(:,8);,P2=Points(:,7);
- DisplayBazierPath([P1(1), C1(1),C2(1),P2(1)],[P1(2), C1(2),C2(2),P2(2)], 100)
+ P1=Points(:,7);,P2=Points(:,8);
+ DisplayBazierPath([P2(1), C1(1),C2(1),P1(1)],[P2(2), C1(2),C2(2),P1(2)], 100)
  
 %
 % Here you should set up control points for curve segment B and draw
@@ -58,7 +58,17 @@ end;
 % touches the line y=0 and the line x=A, where A is picked so that the 
 % curve looks ok.
 %
- P1=Points(:,3);P4=Points(:,6);
+ C3=Control(:,3);
+ C4=Control(:,4);
+ C5=Control(:,5);
+ C6=Control(:,6);
+ C7=Control(:,7);
+ C8=Control(:,8);
+
+ P1=Points(:,3);P2 = [-5, 0];P3 = [-33, 73];P4=Points(:,6);
+ DisplayBazierPath([P1(1), C3(1), C4(1), P2(1)],[P1(2), C3(2), C4(2), P2(2)], 100);
+ DisplayBazierPath([P2(1), C5(1), C6(1), P3(1)],[P2(2), C5(2), C6(2), P3(2)], 100);
+ DisplayBazierPath([P3(1), C7(1), C8(1), P4(1)],[P3(2), C7(2), C8(2), P4(2)], 100);
  
 %
 % Set up the control points needed to draw the inner arc. Now it is enough 
@@ -66,5 +76,9 @@ end;
 % should tangent the line x=B. It is required that B>A or the inner arc
 % will cross the outer one. 
 %
+ %C5=Control(:,5);
+ %C6=Control(:,6);
+  
  P1=Points(:,4);P3=Points(:,5);
+ %DisplayBazierPath([P1(1), C5(1), C6(1), P4(1)],[P1(2), C5(2), C6(2), P4(2)], 100);
  
